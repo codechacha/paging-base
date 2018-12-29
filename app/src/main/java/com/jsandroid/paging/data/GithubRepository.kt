@@ -42,6 +42,7 @@ class GithubRepository(context: Context) {
     // avoid triggering multiple requests in the same time
     private var isRequestInProgress = false
 
+
     /**
      * Search repositories whose names match the query.
      */

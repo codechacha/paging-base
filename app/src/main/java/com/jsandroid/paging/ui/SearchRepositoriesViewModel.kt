@@ -18,6 +18,7 @@ package com.jsandroid.paging.ui
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.jsandroid.paging.data.GithubRepository
 import com.jsandroid.paging.model.Repo

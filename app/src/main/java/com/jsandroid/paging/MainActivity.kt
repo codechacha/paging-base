@@ -19,6 +19,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        private const val LAST_SEARCH_QUERY: String = "last_search_query"
+        private const val DEFAULT_QUERY = "Android"
+    }
+
     private lateinit var viewModel: SearchRepositoriesViewModel
     private val adapter = ReposAdapter()
 
@@ -49,7 +54,6 @@ class MainActivity : AppCompatActivity() {
     private fun initAdapter() {
         list.adapter = adapter
         viewModel.repos.observe(this, Observer<List<Repo>> {
-            Log.d("Activity", "list: ${it?.size}")
             showEmptyList(it?.size == 0)
             adapter.submitList(it)
         })
@@ -61,22 +65,22 @@ class MainActivity : AppCompatActivity() {
     private fun initSearch(query: String) {
         search_repo.setText(query)
 
-        search_repo.setOnEditorActionListener({ _, actionId, _ ->
+        search_repo.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
                 updateRepoListFromInput()
                 true
             } else {
                 false
             }
-        })
-        search_repo.setOnKeyListener({ _, keyCode, event ->
+        }
+        search_repo.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 updateRepoListFromInput()
                 true
             } else {
                 false
             }
-        })
+        }
     }
 
     private fun updateRepoListFromInput() {
@@ -111,10 +115,5 @@ class MainActivity : AppCompatActivity() {
                 viewModel.listScrolled(visibleItemCount, lastVisibleItem, totalItemCount)
             }
         })
-    }
-
-    companion object {
-        private const val LAST_SEARCH_QUERY: String = "last_search_query"
-        private const val DEFAULT_QUERY = "Android"
     }
 }

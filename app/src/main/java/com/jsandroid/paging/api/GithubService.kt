@@ -89,7 +89,6 @@ interface GithubService {
                     @Query("page") page: Int,
                     @Query("per_page") itemsPerPage: Int): Call<RepoSearchResponse>
 
-
     companion object {
         private const val BASE_URL = "https://api.github.com/"
 
